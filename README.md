@@ -2,7 +2,7 @@
 Simulated a full network breach in Kali Linux using Metasploit, covering exploitation, persistence, and lateral movement. Established reverse shell access, maintained control via cron, and analysed indicators of compromise using Linux tools, demonstrating both offensive and SOC-level defensive skills.
 Simulated Network Breach & SOC Analysis Lab (Kali Linux + Metasploit + Wazuh SIEM)
 
- ##Project Overview
+ ## Project Overview
 
 This project demonstrates a full end-to-end simulation of a network breach within a controlled lab environment using Kali Linux and Metasploit Framework, with all activities centrally monitored and captured through Wazuh.
 
@@ -10,7 +10,7 @@ The objective was to replicate real-world attacker behaviour across the cyber ki
 
 All attacker actions were ingested, correlated, and visualised in Wazuh, enabling full visibility of persistence, privilege escalation attempts, account creation, and lateral movement.
 
-##The lab covers:
+## The lab covers:
 
 Initial access simulation
 Reconnaissance and enumeration
@@ -44,48 +44,49 @@ Linux native utilities (ps, crontab, ls, etc.)
 Wazuh agent + dashboard
 
 ## Execution Breakdown (Fully SIEM-Monitored)
-1. Initial Access Simulation
+
+### 1. Initial Access Simulation
 Created a low-privilege user (victim)
 Generated reverse shell ELF payload using msfvenom
 Deployed payload into user directory
 Wazuh Visibility: User creation + file activity logs captured and indexed
 
-2. Reconnaissance & Enumeration
+### 2. Reconnaissance & Enumeration
 Performed local port scanning using Metasploit auxiliary modules
 Identified exposed services on the host system
 
  Wazuh Visibility: Network and system scan behaviour mapped to MITRE reconnaissance tactics
 
-3. Exploitation & Session Establishment
+### 3. Exploitation & Session Establishment
 Configured Metasploit handler
 Executed payload under victim context
 Established Meterpreter session
 
  Wazuh Visibility: Execution traces and process creation events captured
 
-4. Post-Exploitation (Credential Access)
+### 4. Post-Exploitation (Credential Access)
 System enumeration (getuid, sysinfo)
 Simulated credential discovery in user space
 
  Wazuh Visibility: Suspicious shell activity and file access events logged
 
-5. Privilege Escalation Attempt
+### 5. Privilege Escalation Attempt
 Attempted privilege escalation via Meterpreter (getsystem)
 Attempt failed (no exploitable vector present)
 
  Wazuh Visibility: Privilege escalation behaviour mapped to MITRE ATT&CK detection rules
 
-6. Persistence Mechanism
+### 6. Persistence Mechanism
 Established cron-based persistence (crontab -e)
 Payload executed every minute
 
- Wazuh Visibility:
+## Wazuh Visibility:
 
 Cron job modification detected
 Scheduled task persistence flagged in MITRE ATT&CK dashboard
 High-risk persistence behaviour logged and correlated
 
-7. Lateral Movement Simulation
+### 7. Lateral Movement Simulation
 Created second user (lateral)
 Deployed separate payload
 Executed and established additional session
@@ -95,7 +96,8 @@ Executed and established additional session
 New account creation detected
 sudo-based user switching logged
 Cross-user execution behaviour correlated as lateral movement
-8. Detection & Threat Hunting (SOC Perspective)
+
+### 8. Detection & Threat Hunting (SOC Perspective)
 
 All attacker actions were investigated using Linux tools and fully validated in Wazuh:
 
@@ -104,7 +106,7 @@ ps aux → malicious process identification
 /home directory analysis → suspicious binaries
 sudo logs → privilege switching analysis
 
- Key Indicators of Compromise (IOCs):
+ ### Key Indicators of Compromise (IOCs):
 
 Unauthorized cron persistence
 Suspicious ELF execution in user directories
@@ -112,7 +114,7 @@ Privilege escalation attempts (sudo -u)
 Lateral movement between user accounts
 Reverse shell activity
 
-9. Cleanup & System Restoration
+### 9. Cleanup & System Restoration
 Removed cron jobs, payloads, and users
 Restored system to baseline state
 
